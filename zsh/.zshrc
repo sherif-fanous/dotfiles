@@ -6,8 +6,10 @@ zstyle ':omz:update' frequency 1
 zstyle ':omz:update' mode prompt
 
 fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 plugins=(
   docker
+  fzf-tab
   gcloud
   github
   golang
@@ -21,6 +23,7 @@ plugins=(
   python
   rust
   terraform
+  zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
@@ -45,11 +48,6 @@ alias mkdir="mkdir -p"
 # Exports
 # -----------------------------
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH:$HOME/.local/bin:$HOME/go/bin"
-
-# -----------------------------
-# Atuin
-# -----------------------------
-command -v atuin &>/dev/null && eval "$(atuin init zsh)"
 
 # -----------------------------
 # Fabric
