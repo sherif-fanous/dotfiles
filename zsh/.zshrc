@@ -33,8 +33,13 @@ source $ZSH/oh-my-zsh.sh
 # Aliases
 # -----------------------------
 alias assume="source assume"
-alias ll="ls -ahlG"
-alias ls="ls -ahG"
+if command -v eza &>/dev/null; then
+  alias ll="eza --all --icons=auto --group-directories-first --long"
+  alias ls="eza --all --icons=auto --group-directories-first"
+else
+  alias ll="ls -ahlG"
+  alias ls="ls -ahG"
+fi
 alias mkdir="mkdir -p"
 
 # ---------------------
