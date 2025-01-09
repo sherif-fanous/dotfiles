@@ -21,7 +21,7 @@ source $ZSH/oh-my-zsh.sh
 # Aliases
 # -----------------------------
 command -v assume &>/dev/null && alias assume="source assume"
-command -v bat &>/dev/null && alias bat="bat --theme-dark=Catppuccin\ Macchiato --theme-light=Catppuccin\ Latte" && alias cat="bat"
+command -v bat &>/dev/null && alias bat="bat --theme-dark=Catppuccin\ Macchiato --theme-light=Catppuccin\ Latte" && alias cat="bat --style plain"
 if command -v eza &>/dev/null; then
   alias ll="eza --all --all --header --icons=auto --git --group-directories-first --long"
   alias ls="eza --all --all --header --icons=auto --git --group-directories-first"
