@@ -19,7 +19,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-sensible'
 Plug 'vim-airline/vim-airline'
 Plug 'vimpostor/vim-lumen'
-Plug 'ycm-core/YouCompleteMe'
+if isdirectory(expand('~/.vim/plugged/YouCompleteMe'))
+  Plug 'ycm-core/YouCompleteMe'
+endif
 call plug#end()
 
 " -----------------------------
