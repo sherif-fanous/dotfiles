@@ -5,37 +5,35 @@ zstyle ':completion:*' completer _expand_alias _complete _ignored
 zstyle ':omz:update' frequency 1
 zstyle ':omz:update' mode prompt
 
-fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-plugins=(
-  docker
-  fzf-tab
-  gcloud
-  github
-  golang
-  kubectl
-  macos
-  npm
-  nvm
-  perl
-  pip
-  pyenv
-  python
-  rust
-  terraform
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
+command -v brew &>/dev/null && fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+[[ (-v ZSH && -d "$ZSH/custom") || -d "$HOME/.oh-my-zsh}/custom" ]] && fpath+=${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
+plugins=()
+
+command -v docker &>/dev/null && plugins+=("docker")
+[[ -f $HOME/.oh-my-zsh/custom/plugins/fzf-tab ]] && plugins+=("fzf-tab")
+command -v git &>/dev/null && plugins+=("git")
+command -v kubectl &>/dev/null && plugins+=("kubectl")
+[[ $(uname) == "Darwin" ]] && plugins+=("macos")
+command -v npm &>/dev/null && plugins+=("npm")
+command -v perl &>/dev/null && plugins+=("perl")
+command -v pip &>/dev/null && plugins+=("pip")
+command -v python3 &>/dev/null && plugins+=("python")
+command -v rustc &>/dev/null && plugins+=("rust")
+command -v terraform &>/dev/null && plugins+=("terraform")
+[[ -f $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]] && plugins+=("zsh-autosuggestions")
+[[ -f $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]] && plugins+=("zsh-syntax-highlighting")
 
 source $ZSH/oh-my-zsh.sh
 
 # -----------------------------
 # Aliases
 # -----------------------------
-alias assume="source assume"
+command -v assume &>/dev/null && alias assume="source assume"
+command -v bat &>/dev/null && alias bat="bat --theme-dark=Catppuccin\ Macchiato --theme-light=Catppuccin\ Latte" && alias cat="bat"
 if command -v eza &>/dev/null; then
-  alias ll="eza --all --icons=auto --group-directories-first --long"
-  alias ls="eza --all --icons=auto --group-directories-first"
+  alias ll="eza --all --all --header --icons=auto --git --group-directories-first --long"
+  alias ls="eza --all --all --header --icons=auto --git --group-directories-first"
 else
   alias ll="ls -ahlG"
   alias ls="ls -ahG"
@@ -45,14 +43,16 @@ alias mkdir="mkdir -p"
 # ---------------------
 # Command Completions
 # ---------------------
-[[ -f "$(brew --prefix)/etc/bash_completion.d/az" ]] && source "$(brew --prefix)/etc/bash_completion.d/az"
-[[ -f "$(brew --prefix)/etc/bash_completion.d/wg" ]] && source "$(brew --prefix)/etc/bash_completion.d/wg"
-[[ -f "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc" ]] && source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+command -v brew &>/dev/null && [[ -f "$(brew --prefix)/etc/bash_completion.d/az" ]] && source "$(brew --prefix)/etc/bash_completion.d/az"
+command -v brew &>/dev/null && [[ -f "$(brew --prefix)/etc/bash_completion.d/wg" ]] && source "$(brew --prefix)/etc/bash_completion.d/wg"
+command -v brew &>/dev/null && [[ -f "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc" ]] && source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
 
 # -----------------------------
 # Exports
 # -----------------------------
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH:$HOME/.local/bin:$HOME/go/bin"
+[[ (-v KREW && -d "$KREW/bin") || -d "$HOME/.krew/bin" ]] && export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+[[ -d "$HOME/.local/bin" ]] && export PATH="$PATH:$HOME/.local/bin"
+[[ -d "$HOME/go/bin" ]] && export PATH="$PATH:$HOME/go/bin"
 
 # -----------------------------
 # Fabric
@@ -62,14 +62,14 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH:$HOME/.local/bin:$HOME/go/bin"
 # -----------------------------
 # NVM (Node Version Manager)
 # -----------------------------
-export NVM_DIR="$HOME/.nvm"
-[[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]] && source "/opt/homebrew/opt/nvm/nvm.sh"
+[[ -d "$HOME/.nvm" ]] && export NVM_DIR="$HOME/.nvm"
+[[ -f "/opt/homebrew/opt/nvm/nvm.sh" ]] && source "/opt/homebrew/opt/nvm/nvm.sh"
 
 # -----------------------------
 # Starship Prompt
 # -----------------------------
 if [[ $TERM_PROGRAM == "WarpTerminal" ]]; then
-  export STARSHIP_CONFIG="$HOME/.config/starship_warp.toml"
+  [[ -f "$HOME/.config/starship_warp.toml" ]] && export STARSHIP_CONFIG="$HOME/.config/starship_warp.toml"
 fi
 command -v starship &>/dev/null && eval "$(starship init zsh)"
 
