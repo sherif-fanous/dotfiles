@@ -10,17 +10,8 @@ command -v brew &>/dev/null && fpath=($(brew --prefix)/share/zsh/site-functions 
 
 plugins=()
 
-command -v docker &>/dev/null && plugins+=("docker")
 [[ -f $HOME/.oh-my-zsh/custom/plugins/fzf-tab ]] && plugins+=("fzf-tab")
-command -v git &>/dev/null && plugins+=("git")
 command -v kubectl &>/dev/null && plugins+=("kubectl")
-[[ $(uname) == "Darwin" ]] && plugins+=("macos")
-command -v npm &>/dev/null && plugins+=("npm")
-command -v perl &>/dev/null && plugins+=("perl")
-command -v pip &>/dev/null && plugins+=("pip")
-command -v python3 &>/dev/null && plugins+=("python")
-command -v rustc &>/dev/null && plugins+=("rust")
-command -v terraform &>/dev/null && plugins+=("terraform")
 [[ -f $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]] && plugins+=("zsh-autosuggestions")
 [[ -f $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]] && plugins+=("zsh-syntax-highlighting")
 
