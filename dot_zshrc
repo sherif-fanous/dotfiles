@@ -10,10 +10,10 @@ command -v brew &>/dev/null && fpath=($(brew --prefix)/share/zsh/site-functions 
 
 plugins=()
 
-[[ -f $HOME/.oh-my-zsh/custom/plugins/fzf-tab ]] && plugins+=("fzf-tab")
+[[ -d $HOME/.oh-my-zsh/custom/plugins/fzf-tab ]] && plugins+=("fzf-tab")
 command -v kubectl &>/dev/null && plugins+=("kubectl")
-[[ -f $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]] && plugins+=("zsh-autosuggestions")
-[[ -f $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]] && plugins+=("zsh-syntax-highlighting")
+[[ -d $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions ]] && plugins+=("zsh-autosuggestions")
+[[ -d $HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]] && plugins+=("zsh-syntax-highlighting")
 
 source $ZSH/oh-my-zsh.sh
 
