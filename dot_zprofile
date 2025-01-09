@@ -1,7 +1,9 @@
 # -----------------------------
 # Homebrew
 # -----------------------------
+command -v /home/linuxbrew/.linuxbrew/bin/brew &>/dev/null && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 command -v /opt/homebrew/bin/brew &>/dev/null && eval "$(/opt/homebrew/bin/brew shellenv)"
+command -v /usr/local/bin/brew &>/dev/null && eval "$(/usr/local/bin/brew shellenv)"
 
 # -----------------------------
 # Pyenv
