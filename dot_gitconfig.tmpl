@@ -1,0 +1,55 @@
+[commit]
+    template = ~/.stCommitMsg
+[core]
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
+{{- if eq .chezmoi.os "darwin" }}
+    pager = delta --features "$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo dark-mode || echo light-mode)"
+{{- else }}
+    pager = delta
+{{- end }}
+[credential]
+    helper = /usr/local/share/gcm-core/git-credential-manager
+{{- if ne .chezmoi.os "darwin" }}
+[delta]
+    hyperlinks = true
+    line-numbers = true
+    navigate = true
+    side-by-side = true
+    features = catppuccin-latte
+{{- else }}
+[delta "dark-mode"]
+    features = catppuccin-macchiato
+    hyperlinks = true
+    line-numbers = true
+    navigate = true
+    side-by-side = true
+[delta "light-mode"]
+    features = catppuccin-latte
+    hyperlinks = true
+    line-numbers = true
+    navigate = true
+    side-by-side = true
+{{- end }}
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    process = git-lfs filter-process
+    required = true
+    smudge = git-lfs smudge -- %f
+{{- if eq .chezmoi.os "darwin" }}
+[include]
+    path = ~/src/catppuccin/delta/catppuccin.gitconfig
+{{- end }}
+{{- if eq .chezmoi.hostname "messi" }}
+[includeIf "gitdir:~/src/orchard/"]
+    path = ~/.gitconfig-orchard
+[includeIf "gitdir:~/src/virtasant/"]
+    path = ~/.gitconfig-virtasant
+{{- end }}
+[interactive]
+    diffFilter = delta --color-only
+[merge]
+    conflictStyle = zdiff3
+[user]
+    email = sherif.fanous@gmail.com
+    name = Sherif Fanous

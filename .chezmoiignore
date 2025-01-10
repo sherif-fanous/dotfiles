@@ -1,0 +1,7 @@
+{{- if ne .chezmoi.hostname "messi" }}
+.gitconfig-orchard
+.gitconfig-virtasant
+{{- end }}
+{{- if not (lookPath "ghostty") }}
+.config/ghostty/*
+{{- end }}
