@@ -9,7 +9,11 @@
     pager = delta
 {{- end }}
 [credential]
+{{- if eq .chezmoi.os "darwin" }}
     helper = /usr/local/share/gcm-core/git-credential-manager
+{{- else }}
+    helper = store
+{{- end }}
 {{- if ne .chezmoi.os "darwin" }}
 [delta]
     hyperlinks = true
