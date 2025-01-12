@@ -1,7 +1,10 @@
+{{- if not (lookPath "ghostty") }}
+.config/ghostty/*
+{{- end }}
+{{- if ne .chezmoi.os "darwin" }}
+.config/karabiner/*
+{{- end }}
 {{- if ne .chezmoi.hostname "messi" }}
 .gitconfig-orchard
 .gitconfig-virtasant
-{{- end }}
-{{- if not (lookPath "ghostty") }}
-.config/ghostty/*
 {{- end }}
